@@ -1,0 +1,2 @@
+# files to be created by air.toml when building the docker image.
+tmp/*
