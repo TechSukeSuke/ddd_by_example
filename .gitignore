@@ -1,0 +1,3 @@
+# Dependency directories using go in my private repository
+app/pkg
+app/bin
