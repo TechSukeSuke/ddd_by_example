@@ -1,0 +1,57 @@
+version: '3.6'
+
+services:
+  backend:
+    container_name: ddd_backend
+    build:
+      context: ../../../../src
+      dockerfile: build/docker/dev/Dockerfile
+    depends_on:
+      - mysql
+    ports:
+      - 8080:8080
+      - 2345:2345
+    tty: true
+    volumes:
+      - ../../../../../app:/go
+      - vol_go_bin:/go/bin
+      - vol_go_pkg:/go/pkg
+    networks:
+      - nw_database
+
+  mysql:
+    container_name: ddd_mysql
+    image: mysql:8.0
+    platform: linux/amd64
+    env_file:
+      - ../../../../src/.env
+    restart: always
+    tty: true
+    ports:
+      - 3306:3306
+    volumes:
+      - ../../../../src/build/docker/my.cnf:/etc/mysql/my.cnf
+      - ../../../../src/database/init:/docker-entrypoint-initdb.d
+      - vol_mysql_data:/var/lib/mysql
+    networks:
+      - nw_database
+
+volumes:
+  vol_mysql_data:
+      driver: local
+  vol_go_bin:
+      driver: local
+      driver_opts:
+        type: none
+        device: $PWD/../bin
+        o: bind
+  vol_go_pkg:
+      driver: local
+      driver_opts:
+        type: none
+        device: $PWD/../pkg
+        o: bind
+
+networks:
+  nw_database:
+    driver: bridge
