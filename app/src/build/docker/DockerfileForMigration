@@ -1,0 +1,31 @@
+# ==================================================
+# パッケージのインストールのレイヤー
+# ==================================================
+FROM golang:1.21-alpine AS deps
+
+WORKDIR /usr/local/bin
+
+RUN set -ex \
+        && apk add --no-cache --virtual build-dependencies \
+            build-base \
+            git \
+        && go install -ldflags "-extldflags -static" github.com/pressly/goose/v3/cmd/goose@v3.17.0 \
+        && apk del build-dependencies
+
+ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.9.0/wait ./wait
+RUN chmod +x ./wait
+
+# ==================================================
+# アプリのビルドレイヤー
+# ==================================================
+FROM golang:1.21-alpine AS builder
+
+WORKDIR /usr/local/bin
+
+COPY --from=deps /go/bin/goose .
+COPY --from=deps /usr/local/bin/wait .
+COPY scripts/entrypoint_for_goose.sh .
+
+RUN chmod +x ./entrypoint_for_goose.sh
+
+ENTRYPOINT [ "/usr/local/bin/entrypoint_for_goose.sh" ]
