@@ -102,3 +102,7 @@ down-migrate: all-migrate
 		--env-file ${migrate_env} \
 		--network ${migrate_network} \
 		${migrate_tag_name} reset
+
+seed: all
+	docker-compose -f ${dockerfile} run -w /go/src --rm backend go run ./cmd/seeder
+	

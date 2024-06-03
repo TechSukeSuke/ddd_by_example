@@ -1,0 +1,4 @@
+id,company_id,access,opening_hours,contact,thumnails
+1,1,東京都新宿区西新宿二丁目,9:00-18:00,045-1111-1111,"[""example_1.jpg"", ""example_2.jpg""]"
+2,2,大阪府大阪市中央区大手前２丁目,9:00-18:00,045-2222-2222,"[""example_1.jpg"", ""example_2.jpg""]"
+3,3,愛知県名古屋市中区三の丸３丁目１−２,9:00-18:00,045-3333-3333,"[""example_1.jpg"", ""example_2.jpg""]"

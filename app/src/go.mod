@@ -5,6 +5,7 @@ go 1.21.0
 require (
 	github.com/gin-gonic/gin v1.10.0
 	github.com/go-playground/validator/v10 v10.20.0
+	github.com/gocarina/gocsv v0.0.0-20240520201108-78e41c74b4b1
 	github.com/google/wire v0.6.0
 	github.com/spf13/viper v1.18.2
 	gorm.io/driver/mysql v1.5.6
