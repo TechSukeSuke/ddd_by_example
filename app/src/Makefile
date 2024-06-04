@@ -28,7 +28,7 @@ endif
 	@echo "#### All complete. Ready to go!! ####"
 endif
 
-set_up:
+set-up:
 	if [ ! -d bin ]; then mkdir bin; fi
 	if [ ! -d pkg ]; then mkdir pkg; fi
 
